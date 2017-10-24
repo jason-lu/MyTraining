@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.onebit.mytraining.model.Plan
+import com.onebit.mytraining.model.Program
 
 /**
  * Created by jason on 10/23/17.
  */
-class PlanAdapter(private val context: Context, private val list: List<Plan>):
-        RecyclerView.Adapter<PlanAdapter.ViewHolder>() {
+class ProgramAdapter(private val context: Context, private val list: List<Program>):
+        RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var planTitle: TextView
@@ -29,8 +29,8 @@ class PlanAdapter(private val context: Context, private val list: List<Plan>):
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val plan: Plan = list.get(position)
-        holder?.planTitle!!.text = plan.title
+        val program: Program = list.get(position)
+        holder?.planTitle!!.text = program.title
 
     }
 

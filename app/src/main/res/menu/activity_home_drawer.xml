@@ -7,15 +7,15 @@
         <item
             android:id="@+id/nav_plan"
             android:icon="@drawable/ic_plan_black_48px"
-            android:title="@string/plans" />
+            android:title="@string/programs" />
         <item
             android:id="@+id/nav_workout"
             android:icon="@drawable/ic_exercise_black_48px"
-            android:title="@string/workout" />
+            android:title="@string/sessions" />
         <item
             android:id="@+id/nav_achievements"
             android:icon="@drawable/ic_achievement_black_48px"
-            android:title="@string/achievements" />
+            android:title="@string/history" />
     </group>
 
 

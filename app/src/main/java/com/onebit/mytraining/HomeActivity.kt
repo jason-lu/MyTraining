@@ -1,7 +1,5 @@
 package com.onebit.mytraining
 
-import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
@@ -27,7 +25,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if(savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.fragment_container,PlanFragment.newInstance(),PlanFragment.tag)
+                    .add(R.id.fragment_container, ProgramFragment.newInstance(), ProgramFragment.tag)
                     .commit()
         }
 
@@ -84,8 +82,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_plan -> {
-                tag = PlanFragment.tag
-                fragment = fragmentManager.findFragmentByTag(tag) ?: PlanFragment.newInstance()
+                tag = ProgramFragment.tag
+                fragment = fragmentManager.findFragmentByTag(tag) ?: ProgramFragment.newInstance()
             }
             R.id.nav_workout -> {
                 tag = WorkoutFragment.tag
