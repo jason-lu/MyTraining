@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.onebit.mytraining.model.Day
 import com.onebit.mytraining.model.Program
+import java.util.*
 
 /**
  * Created by jason on 20/10/17.
@@ -46,8 +48,12 @@ class ProgramFragment : Fragment() {
     }
 
     private fun initPlan(list: ArrayList<Program>) {
-        for (i in 1 .. 10 step 1) {
-            list.add(Program("plan "+ i))
+        val days = ArrayList<Day>()
+        val program = Program(title = "My Training plan",date = Date(),trainer = "Dan",trainee = "Kuan",
+                mainGoal = "Lose weight", proGoal = "Correct movement patterns.",
+                restrains = "Overall Tightness." , days = days)
+        for(i in 1 .. 5 step 1) {
+            list.add(program)
         }
     }
 }

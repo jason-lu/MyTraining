@@ -15,19 +15,58 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_plan_title"
+            android:id="@+id/tv_program_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginStart="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/tv_plan_detail"
+            android:id="@+id/tv_program_date"
+            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Details displayed here" />
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_program_trainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_program_trainee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_program_maingoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_program_progoal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tv_program_restrains"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="8dp"/>
+
 
     </LinearLayout>
 

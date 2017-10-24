@@ -14,4 +14,13 @@
     <string name="exit_confirm">"Are you sure to exit app?"</string>
     <string name="yes">yes</string>
     <string name="no">No</string>
+
+    <string name="program">Program: </string>
+    <string name="date">Date: </string>
+    <string name="trainer">Trainer: </string>
+    <string name="trainee">Trainee: </string>
+    <string name="main_goal">Main goal: </string>
+    <string name="pro_goal">Pro goal: </string>
+    <string name="restrains">Restrains: </string>
+
 </resources>
