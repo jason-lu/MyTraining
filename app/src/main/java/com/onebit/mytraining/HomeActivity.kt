@@ -8,17 +8,42 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.onebit.mytraining.model.Day
+import com.onebit.mytraining.model.Program
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    companion object {
+        lateinit var list: ArrayList<Program>
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
+
+        Log.d("training","onCreate")
+
+        fun initPlan(): ArrayList<Program> {
+            val days = ArrayList<Day>()
+            list = ArrayList()
+            val program = Program(title = "My Training plan",date = Date(),trainer = "Dan",trainee = "Kuan",
+                    mainGoal = "Lose weight", proGoal = "Correct movement patterns.",
+                    restrains = "Overall Tightness." , days = days)
+            for(i in 1 .. 5 step 1) {
+                list.add(program)
+            }
+
+            return list
+        }
+
+        initPlan()
 
 
         //Defualt fragment is planFragment. Shows all plans
@@ -104,5 +129,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    
 
 }
