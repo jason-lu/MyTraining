@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import com.onebit.mytraining.model.FragComm
 import com.onebit.mytraining.model.Program
 
 /**
  * Created by jason on 10/23/17.
  */
-class ProgramAdapter(private val context: Context, private val list: List<Program>):
+class ProgramAdapter(private val context: Context, private val list: List<Program>,val fragComm: FragComm):
         RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var programTitle: TextView = itemView.findViewById(R.id.tv_program_title)
@@ -29,9 +30,8 @@ class ProgramAdapter(private val context: Context, private val list: List<Progra
         val mainGoal: String = itemView.resources.getString(R.string.main_goal)
         val proGoal: String = itemView.resources.getString(R.string.pro_goal)
         val restrains: String = itemView.resources.getString(R.string.restrains)
-        private var view: View = itemView
         @SuppressLint("SetTextI18n")
-        fun bindItems(program: Program, pos: Int) {
+        fun bindItems(program: Program, pos: Int, fragComm: FragComm) {
             programTitle.text = program.title
             programDate.text = "$date ${program.date}"
             programDate.text = "$date ${program.date}"
@@ -40,9 +40,9 @@ class ProgramAdapter(private val context: Context, private val list: List<Progra
             programMainGoal.text = "$mainGoal ${program.mainGoal}"
             programProGoal.text = "$proGoal ${program.proGoal}"
             programRestrain.text = "$restrains ${program.restrains}"
-            itemView.setOnClickListener ( View.OnClickListener {
-                v ->  Toast.makeText(v.context,"clicked "+program.title,Toast.LENGTH_SHORT).show()
-            } )
+            itemView.setOnClickListener ({
+                v -> fragComm.sendProgram(pos)
+            })
         }
 
     }
@@ -54,7 +54,8 @@ class ProgramAdapter(private val context: Context, private val list: List<Progra
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItems(list[position],position)
+
+        holder.bindItems(list[position],position, fragComm)
 
     }
 

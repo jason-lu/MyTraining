@@ -5,5 +5,5 @@ package com.onebit.mytraining.model
  * It describes exercises to do in a day or session.
  * Rest can leave blank. Other fields are mandatory.
  */
-class Exercise(var order: String, name: String, reps: Int,
-               sets: Int, tempo: String="", rest: Int =0)
+class Exercise(var order: String, var name: String, var reps: Int,
+               var sets: Int, var tempo: String="", var rest: Int =0)
