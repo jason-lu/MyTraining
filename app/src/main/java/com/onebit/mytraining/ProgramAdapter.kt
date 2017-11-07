@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import com.onebit.mytraining.model.FragComm
+import com.onebit.mytraining.util.FragComm
 import com.onebit.mytraining.model.Program
 
 /**

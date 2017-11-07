@@ -1,4 +1,6 @@
-package com.onebit.mytraining.model
+package com.onebit.mytraining.util
+
+import com.onebit.mytraining.model.Program
 
 /**
  * Created by jason on 10/25/17.

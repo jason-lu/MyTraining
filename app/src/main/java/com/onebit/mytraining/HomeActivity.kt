@@ -1,7 +1,9 @@
 package com.onebit.mytraining
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -9,15 +11,18 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import com.onebit.mytraining.model.Exercise
-import com.onebit.mytraining.model.FragComm
+import com.onebit.mytraining.util.FragComm
 import com.onebit.mytraining.model.Program
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener, FragComm {
@@ -25,6 +30,8 @@ class HomeActivity : AppCompatActivity(),
     companion object {
         lateinit var list: ArrayList<Program>
     }
+
+    private val OPEN_REQUEST_CODE = 1
 
     private lateinit var fragmentManager: FragmentManager
 
@@ -53,10 +60,13 @@ class HomeActivity : AppCompatActivity(),
             val exercise2 = Exercise("a2","QL walk2",2,2)
             exercises.add(exercise)
             exercises.add(exercise2)
+            val days = HashMap<Int, ArrayList<Exercise>>()
+            days.put(0,exercises)
+            days.put(1,exercises)
             list = ArrayList()
             val program = Program(title = "My Training plan",date = Date(),trainer = "Dan",trainee = "Kuan",
                     mainGoal = "Lose weight", proGoal = "Correct movement patterns.",
-                    restrains = "Overall Tightness." , exercises = exercises)
+                    restrains = "Overall Tightness." , exercises = days )
             for(i in 1 .. 5 step 1) {
                 list.add(program)
             }
@@ -74,25 +84,26 @@ class HomeActivity : AppCompatActivity(),
                     .beginTransaction()
                     .add(R.id.fragment_container, ProgramFragment.newInstance(), ProgramFragment.tag)
                     .commit()
+
+            val toggle = ActionBarDrawerToggle(
+                    this, drawer_layout, toolbar, R.string.navigation_drawer_open,
+                    R.string.navigation_drawer_close)
+            drawer_layout.addDrawerListener(toggle)
+            toggle.syncState()
+
+            nav_view.setNavigationItemSelectedListener(this)
+            val id = R.id.nav_workout
+            val item = nav_view.menu.findItem(id)
+            onNavigationItemSelected(item)
         }
 
 
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+            openFile()
         }
-
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        nav_view.setNavigationItemSelectedListener(this)
-        val id = R.id.nav_workout
-        val item = nav_view.menu.findItem(id)
-        onNavigationItemSelected(item)
     }
 
     override fun onBackPressed() {
@@ -109,7 +120,7 @@ class HomeActivity : AppCompatActivity(),
         }
     }
 
-    fun confirm() {
+    private fun confirm() {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setMessage(R.string.exit_confirm)
                 .setNegativeButton(R.string.no, {
@@ -159,6 +170,32 @@ class HomeActivity : AppCompatActivity(),
         return true
     }
 
+    //import programs from external json file
+    private fun openFile() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "application/*"
+        startActivityForResult(intent,OPEN_REQUEST_CODE)
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == OPEN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            var uri: Uri? = null
+            if (data != null) {
+                uri = data.getData()
+                Log.i("file", "Uri: " + uri.toString());
+                readProgram(uri)
+            }
+        }
+    }
 
+    private fun readProgram(uri: Uri) {
+        val inputStream = contentResolver.openInputStream(uri)
+        val size = inputStream.available()
+        var buffer = ByteArray(size)
+        inputStream.read(buffer)
+        inputStream.close()
+        val json = String(buffer)
+        Toast.makeText(this,json,Toast.LENGTH_SHORT).show()
+    }
 }

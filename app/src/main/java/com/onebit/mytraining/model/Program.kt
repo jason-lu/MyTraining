@@ -2,6 +2,7 @@ package com.onebit.mytraining.model
 
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 /**
  * Created by jason on 10/23/17.
@@ -10,4 +11,4 @@ import kotlin.collections.ArrayList
 
 class Program(var title: String=" ", var date: Date, var trainer: String, var trainee: String,
               var mainGoal: String, var proGoal: String, var restrains: String,
-              var exercises: ArrayList<Exercise>)
+              var exercises: HashMap<Int, ArrayList<Exercise>>)

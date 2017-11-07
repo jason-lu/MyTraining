@@ -8,8 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.onebit.mytraining.model.FragComm
-import kotlinx.android.synthetic.main.card_plan.*
+import com.onebit.mytraining.util.FragComm
 
 /**
  * Created by jason on 20/10/17.
