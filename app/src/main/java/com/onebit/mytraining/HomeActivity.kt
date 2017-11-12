@@ -36,7 +36,7 @@ class HomeActivity : AppCompatActivity(),
     private lateinit var fragmentManager: FragmentManager
 
     override fun sendProgram(pos: Int) {
-        val fragment = ProgramDetailFragment.newInstance()
+        val fragment = ProgramDetailFragment.newInstance(pos)
         val tag = "ProgramDetailFragment"
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container,fragment,tag)
@@ -75,7 +75,6 @@ class HomeActivity : AppCompatActivity(),
         }
 
         initPlan()
-        //list = ArrayList()
 
 
         //Default fragment is planFragment. Shows all plans

@@ -25,4 +25,11 @@
     <string name="pro_goal">Pro goal: </string>
     <string name="restrains">Restrains: </string>
 
+    <string name="order">order: </string>
+    <string name="exercise"> exercise: </string>
+    <string name="reps">reps: </string>
+    <string name="sets">sets: </string>
+    <string name="tempo">tempo: </string>
+    <string name="rest">rest: </string>
+
 </resources>
