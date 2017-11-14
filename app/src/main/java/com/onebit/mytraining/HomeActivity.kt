@@ -1,9 +1,11 @@
 package com.onebit.mytraining
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -12,8 +14,11 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.onebit.mytraining.model.Exercise
 import com.onebit.mytraining.util.FragComm
@@ -32,6 +37,10 @@ class HomeActivity : AppCompatActivity(),
     }
 
     private val OPEN_REQUEST_CODE = 1
+
+//    var layoutImport: LinearLayout? = null
+//    var fabExpanded = false
+//    var fab: FloatingActionButton? = null
 
     private lateinit var fragmentManager: FragmentManager
 
@@ -53,6 +62,8 @@ class HomeActivity : AppCompatActivity(),
         setSupportActionBar(toolbar)
 
         fragmentManager = getSupportFragmentManager()
+
+//        layoutImport = findViewById(R.id.layoutFabImport)
 
         fun initPlan(): ArrayList<Program> {
             val exercises = ArrayList<Exercise>()
@@ -96,14 +107,30 @@ class HomeActivity : AppCompatActivity(),
             onNavigationItemSelected(item)
         }
 
+//        fab = findViewById(R.id.fabSetting)
 
+        fab?.setOnClickListener { view ->
+//            if(fabExpanded) {
+//                closeSubMenusFab()
+//            } else {
+//                openSubMenusFab()
+//            }
 
-        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
             openFile()
         }
     }
+
+//    private fun closeSubMenusFab() {
+//        layoutImport?.visibility = View.INVISIBLE
+//        fabExpanded = false
+//        fab?.setImageResource(R.drawable.ic_note_add_white_48px)
+//    }
+//
+//    private fun openSubMenusFab() {
+//        layoutImport!!.visibility = View.VISIBLE
+//        fabExpanded = true
+//        fab?.setImageResource(R.drawable.ic_close_white_48px)
+//    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {

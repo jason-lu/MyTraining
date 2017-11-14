@@ -21,7 +21,11 @@ fun parsePrograms(json: String) : ArrayList<Program>?{
     val mainGoal = jsonObj.getString("mainGoal")
     val proGoal = jsonObj.getString("proGoal")
     val days = jsonObj.getJSONArray("days")
-    var proDays = ArrayList<Exercise>()
+
+    for(i in 0 .. days.length()) {
+        val day = days[1]
+
+    }
 
     return null
 }

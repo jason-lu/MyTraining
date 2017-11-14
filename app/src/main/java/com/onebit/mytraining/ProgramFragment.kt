@@ -1,5 +1,6 @@
 package com.onebit.mytraining
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -30,7 +31,6 @@ class ProgramFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_plan, container, false)
-        fragComm = activity as FragComm
         emptyPlan = view!!.findViewById(R.id.tv_empty_program)
         planCardView = view.findViewById(R.id.plan_contianer)
         linearLayoutManager = LinearLayoutManager(context)
@@ -44,5 +44,10 @@ class ProgramFragment : Fragment() {
             emptyPlan.visibility=View.GONE
         }
         return view
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        fragComm = activity as FragComm
     }
 }

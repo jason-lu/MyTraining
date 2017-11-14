@@ -31,5 +31,7 @@
     <string name="sets">sets: </string>
     <string name="tempo">tempo: </string>
     <string name="rest">rest: </string>
+    <string name="import_json">import</string>
+    <string name="create">create new </string>
 
 </resources>

@@ -4,14 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import com.onebit.mytraining.util.FragComm
 
 /**
@@ -38,14 +36,29 @@ class ProgramDetailFragment: Fragment() {
         val days = fragComm.getProgram()[pos].exercises
 
         val dayContainer = view?.findViewById<LinearLayout>(R.id.day_container)
-        val inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val cellInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         for ((key,value) in days) {
             val day = TextView(context)
             day.text="Day ${key+1}"
             dayContainer?.addView(day)
             val exes = value
             for (i in exes.indices) {
-                val exeCell = inflater.inflate(R.layout.exe_item,null,false)
+                val exe = exes[i]
+                val exeCell = cellInflater.inflate(R.layout.exe_item,null,false)
+                val order = exeCell.findViewById<EditText>(R.id.et_order)
+                val exeName = exeCell.findViewById<EditText>(R.id.et_exe)
+                val reps = exeCell.findViewById<EditText>(R.id.et_reps)
+                val sets = exeCell.findViewById<EditText>(R.id.et_sets)
+                val tempo = exeCell.findViewById<EditText>(R.id.et_tempo)
+                val rest = exeCell.findViewById<EditText>(R.id.et_rest)
+
+                order.setText(exe.order)
+                exeName.setText(exe.name)
+                reps.setText(exe.reps.toString())
+                sets.setText(exe.sets.toString())
+                tempo.setText(exe.tempo)
+                rest.setText(exe.rest.toString())
+
                 dayContainer?.addView(exeCell)
 
             }
@@ -55,11 +68,6 @@ class ProgramDetailFragment: Fragment() {
     }
 
     override fun onPause() {
-        val str = StringBuilder()
-        for(i in views.indices) {
-            str.append(views[i].text.toString())
-        }
-        Toast.makeText(context,str.toString(),Toast.LENGTH_LONG).show()
         super.onPause()
     }
 }
