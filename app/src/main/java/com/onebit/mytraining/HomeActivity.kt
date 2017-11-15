@@ -1,11 +1,9 @@
 package com.onebit.mytraining
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -14,15 +12,14 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import com.onebit.mytraining.model.Exercise
 import com.onebit.mytraining.util.FragComm
 import com.onebit.mytraining.model.Program
+import com.onebit.mytraining.util.gJsonParser
+import com.onebit.mytraining.util.gObjParser
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import java.util.*
@@ -38,9 +35,6 @@ class HomeActivity : AppCompatActivity(),
 
     private val OPEN_REQUEST_CODE = 1
 
-//    var layoutImport: LinearLayout? = null
-//    var fabExpanded = false
-//    var fab: FloatingActionButton? = null
 
     private lateinit var fragmentManager: FragmentManager
 
@@ -65,27 +59,14 @@ class HomeActivity : AppCompatActivity(),
 
 //        layoutImport = findViewById(R.id.layoutFabImport)
 
-        fun initPlan(): ArrayList<Program> {
-            val exercises = ArrayList<Exercise>()
-            val exercise = Exercise("a1","QL walk",1,1)
-            val exercise2 = Exercise("a2","QL walk2",2,2)
-            exercises.add(exercise)
-            exercises.add(exercise2)
-            val days = HashMap<Int, ArrayList<Exercise>>()
-            days.put(0,exercises)
-            days.put(1,exercises)
-            list = ArrayList()
-            val program = Program(title = "My Training plan",date = Date(),trainer = "Dan",trainee = "Kuan",
-                    mainGoal = "Lose weight", proGoal = "Correct movement patterns.",
-                    restrains = "Overall Tightness." , exercises = days )
-            for(i in 1 .. 5 step 1) {
-                list.add(program)
-            }
+        fun initPlan() {
 
-            return list
+            list = ArrayList()
+
         }
 
         initPlan()
+
 
 
         //Default fragment is planFragment. Shows all plans
@@ -107,30 +88,13 @@ class HomeActivity : AppCompatActivity(),
             onNavigationItemSelected(item)
         }
 
-//        fab = findViewById(R.id.fabSetting)
 
-        fab?.setOnClickListener { view ->
-//            if(fabExpanded) {
-//                closeSubMenusFab()
-//            } else {
-//                openSubMenusFab()
-//            }
+        fab.setOnClickListener { view ->
 
             openFile()
         }
     }
 
-//    private fun closeSubMenusFab() {
-//        layoutImport?.visibility = View.INVISIBLE
-//        fabExpanded = false
-//        fab?.setImageResource(R.drawable.ic_note_add_white_48px)
-//    }
-//
-//    private fun openSubMenusFab() {
-//        layoutImport!!.visibility = View.VISIBLE
-//        fabExpanded = true
-//        fab?.setImageResource(R.drawable.ic_close_white_48px)
-//    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -218,10 +182,15 @@ class HomeActivity : AppCompatActivity(),
     private fun readProgram(uri: Uri) {
         val inputStream = contentResolver.openInputStream(uri)
         val size = inputStream.available()
-        var buffer = ByteArray(size)
+        val buffer = ByteArray(size)
         inputStream.read(buffer)
         inputStream.close()
         val json = String(buffer)
-        Toast.makeText(this,json,Toast.LENGTH_SHORT).show()
+        val program = gObjParser(json)
+        list.add(program)
+        val programFrag = supportFragmentManager.findFragmentByTag("ProgramFragment")
+        if(programFrag != null && programFrag is ProgramFragment) {
+            programFrag.ProgramAdded()
+        }
     }
 }

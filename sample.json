@@ -1,0 +1,19 @@
+{
+  "title":"My Plan",
+  "date":"11/11/2017",
+  "trainer": "Daniel" ,
+  "trainee": "kuan",
+  "mainGoal": "lose weight",
+  "proGoal": "mobility",
+  "days": [
+    {"1": [
+      {"exercise": {"order": "a1","name":"QL", "reps": 1, "sets":1, "tempo":"none", "rest":0}},
+      {"exercise": {"order": "a2","name":"walk", "reps": 2, "sets":5, "tempo":"none", "rest":3}}
+    ]},
+    {"2": [
+      {"exercise": {"order": "b1","name":"I", "reps": 1, "sets":1, "tempo":"none", "rest":0}},
+      {"exercise": {"order": "b2","name":"have no", "reps": 2, "sets":5, "tempo":"none", "rest":3}},
+      {"exercise": {"order": "b3","name":"idea", "reps": 3, "sets":2, "tempo":"none", "rest":4}}
+    ]}
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "date":"Nov 15, 2017 4:44:17 PM",
+  "exercises":
+    {"1":[
+      {"name":"QL walk","order":"a1","reps":1,"rest":0,"sets":1,"tempo":""},
+      {"name":"QL walk2","order":"a2","reps":2,"rest":0,"sets":2,"tempo":""}],
+     "0":[
+      {"name":"QL walk","order":"a1","reps":1,"rest":0,"sets":1,"tempo":""},
+      {"name":"QL walk2","order":"a2","reps":2,"rest":0,"sets":2,"tempo":""}
+     ]},
+  "mainGoal":"Lose weight",
+  "proGoal":"Correct movement patterns.",
+  "restrains":"Overall Tightness.",
+  "title":"My Training plan",
+  "trainee":"Kuan",
+  "trainer":"Dan"}

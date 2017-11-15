@@ -70,4 +70,5 @@ class ProgramDetailFragment: Fragment() {
     override fun onPause() {
         super.onPause()
     }
+
 }

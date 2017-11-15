@@ -19,6 +19,7 @@ class ProgramFragment : Fragment() {
     private lateinit var fragComm: FragComm
     private lateinit var planCardView: RecyclerView
     private lateinit var emptyPlan: TextView
+    private lateinit var cardAdapter: ProgramAdapter
 
 
     companion object {
@@ -35,7 +36,8 @@ class ProgramFragment : Fragment() {
         planCardView = view.findViewById(R.id.plan_contianer)
         linearLayoutManager = LinearLayoutManager(context)
         planCardView.layoutManager = linearLayoutManager
-        planCardView.adapter= ProgramAdapter(context,fragComm.getProgram(), fragComm)
+        cardAdapter = ProgramAdapter(context,fragComm.getProgram(), fragComm)
+        planCardView.adapter = cardAdapter
         if(fragComm.getProgram().size ==0){
             planCardView.visibility= View.GONE
             emptyPlan.visibility=View.VISIBLE
@@ -49,5 +51,11 @@ class ProgramFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         fragComm = activity as FragComm
+    }
+
+    fun ProgramAdded() {
+        cardAdapter.notifyDataSetChanged()
+        planCardView.visibility= View.VISIBLE
+        emptyPlan.visibility=View.GONE
     }
 }
