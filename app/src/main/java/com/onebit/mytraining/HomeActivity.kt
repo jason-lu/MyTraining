@@ -1,6 +1,7 @@
 package com.onebit.mytraining
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -14,17 +15,14 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import com.onebit.mytraining.model.Exercise
-import com.onebit.mytraining.util.FragComm
 import com.onebit.mytraining.model.Program
-import com.onebit.mytraining.util.gJsonParser
-import com.onebit.mytraining.util.gObjParser
+import com.onebit.mytraining.util.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import java.io.File
+import java.io.FileOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class HomeActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener, FragComm {
@@ -32,6 +30,8 @@ class HomeActivity : AppCompatActivity(),
     companion object {
         lateinit var list: ArrayList<Program>
     }
+
+    private val programFile = "programs.json"
 
     private val OPEN_REQUEST_CODE = 1
 
@@ -60,9 +60,9 @@ class HomeActivity : AppCompatActivity(),
 //        layoutImport = findViewById(R.id.layoutFabImport)
 
         fun initPlan() {
-
+            Log.d("internal", filesDir.toString())
             list = ArrayList()
-
+            readPrograms()
         }
 
         initPlan()
@@ -122,8 +122,12 @@ class HomeActivity : AppCompatActivity(),
     }
 
 
-
-
+    override fun onPause() {
+        super.onPause()
+        val outputStream =  openFileOutput(programFile, Context.MODE_PRIVATE)
+        outputStream.write(parsePrograms(list).toByteArray())
+        outputStream.close()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         return false
@@ -192,5 +196,22 @@ class HomeActivity : AppCompatActivity(),
         if(programFrag != null && programFrag is ProgramFragment) {
             programFrag.ProgramAdded()
         }
+    }
+    private fun readPrograms() {
+        val file = File(filesDir,programFile)
+        if(file.exists()) {
+            val inputStream = file.inputStream()
+            val size = inputStream.available()
+            val buffer = ByteArray(size)
+            inputStream.read(buffer)
+            inputStream.close()
+            val json = String(buffer)
+            json.length
+            Log.d("json", json)
+            if(json.length > 2) {
+                list.addAll(parseJsons(json))
+            }
+        }
+
     }
 }
