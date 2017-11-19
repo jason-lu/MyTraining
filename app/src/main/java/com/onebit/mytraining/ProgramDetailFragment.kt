@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.onebit.mytraining.model.Exercise
 import com.onebit.mytraining.util.FragComm
 
 /**
@@ -17,7 +18,8 @@ import com.onebit.mytraining.util.FragComm
  */
 class ProgramDetailFragment: Fragment() {
     private lateinit var fragComm: FragComm
-    val views = ArrayList<EditText>()
+    private val proViews = HashMap<Int, ArrayList<EditText>>()
+    private lateinit var days: HashMap<Int, ArrayList<Exercise>>
 
     companion object {
         private var pos: Int = -1
@@ -33,7 +35,7 @@ class ProgramDetailFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_program_detail, container, false)
         fragComm = activity as FragComm
-        val days = fragComm.getProgram()[pos].exercises
+        days = fragComm.getProgram()[pos].exercises
 
         val dayContainer = view?.findViewById<LinearLayout>(R.id.day_container)
         val cellInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -42,6 +44,7 @@ class ProgramDetailFragment: Fragment() {
             day.text="Day ${key+1}"
             dayContainer?.addView(day)
             val exes = value
+            val daliyExe = ArrayList<EditText>()
             for (i in exes.indices) {
                 val exe = exes[i]
                 val exeCell = cellInflater.inflate(R.layout.exe_item,null,false)
@@ -58,6 +61,14 @@ class ProgramDetailFragment: Fragment() {
                 sets.setText(exe.sets.toString())
                 tempo.setText(exe.tempo)
                 rest.setText(exe.rest.toString())
+                daliyExe.add(order)
+                daliyExe.add(exeName)
+                daliyExe.add(reps)
+                daliyExe.add(sets)
+                daliyExe.add(tempo)
+                daliyExe.add(rest)
+
+                proViews.put(key,daliyExe)
 
                 dayContainer?.addView(exeCell)
 
@@ -69,6 +80,24 @@ class ProgramDetailFragment: Fragment() {
 
     override fun onPause() {
         super.onPause()
+        val newDays: HashMap<Int, ArrayList<Exercise>> = HashMap()
+        for( (day, exes) in proViews ) {
+            val newDay: ArrayList<Exercise> = ArrayList()
+            val siz = exes.size/6
+            (0 until exes.size step 6).mapTo(newDay) {
+                Exercise(
+                        exes[it].text.toString(),
+                        exes[it +1].text.toString(),
+                        exes[2+ it].text.toString().toInt(),
+                        exes[3+ it].text.toString().toInt(),
+                        exes[4+ it].text.toString(),
+                        exes[5+ it].text.toString().toInt()
+                )
+            }
+            newDays.put(day,newDay)
+        }
+
+        fragComm.saveProgram(pos,newDays)
     }
 
 }

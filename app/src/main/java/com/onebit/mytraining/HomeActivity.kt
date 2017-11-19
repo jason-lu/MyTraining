@@ -15,13 +15,12 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.onebit.mytraining.model.Exercise
 import com.onebit.mytraining.model.Program
 import com.onebit.mytraining.util.*
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import java.io.File
-import java.io.FileOutputStream
-import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity(),
@@ -213,5 +212,9 @@ class HomeActivity : AppCompatActivity(),
             }
         }
 
+    }
+
+    override fun saveProgram(pos: Int, program: HashMap<Int, ArrayList<Exercise>>) {
+        list[pos].exercises = program
     }
 }

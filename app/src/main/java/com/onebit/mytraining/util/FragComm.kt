@@ -1,5 +1,6 @@
 package com.onebit.mytraining.util
 
+import com.onebit.mytraining.model.Exercise
 import com.onebit.mytraining.model.Program
 
 /**
@@ -8,4 +9,5 @@ import com.onebit.mytraining.model.Program
 interface FragComm {
     fun sendProgram(pos: Int)
     fun getProgram(): ArrayList<Program>
+    fun saveProgram(pos: Int, program: HashMap<Int, ArrayList<Exercise>>)
 }
